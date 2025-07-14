@@ -8,8 +8,10 @@
     "test:sans-storybook": "vitest --project sans-storybook",
     "test:storybook": "vitest --project storybook",
     "test:portable-stories": "vitest --project portable-stories",
+    "test:profile-all": "vitest --project sans-storybook run Profile && vitest --project storybook run Profile && vitest --project portable-stories run Profile",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "typescript": "tsc"
   },
   "dependencies": {
     "next": "latest",

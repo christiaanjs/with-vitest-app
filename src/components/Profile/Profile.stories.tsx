@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Profile } from './Profile'
-import { SWRProvider } from '../../providers'
+import { SWRProvider } from '../../providers/SWRProvider'
 import { delay, http, HttpResponse } from 'msw'
 
 // Meta information for the component

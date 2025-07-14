@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
-import { SWRProvider } from './providers'
+import { SWRProvider } from './providers/SWRProvider'
 
 interface AllProvidersProps {
   children: ReactNode

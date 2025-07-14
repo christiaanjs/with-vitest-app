@@ -1,10 +1,10 @@
 import { expect, describe, it, beforeEach, afterEach } from 'vitest'
 import { screen, cleanup } from '@testing-library/react'
 import { renderWithProviders } from '../src/test-utils'
-import Profile from '../pages/profile'
 import { server } from '../src/mocks/server'
 import { http, HttpResponse } from 'msw'
 import { mutate } from 'swr'
+import { Profile } from '../src/components/Profile/Profile'
 
 describe('Profile Page Tests', () => {
   it('loads profile data', async () => {
