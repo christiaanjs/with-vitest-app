@@ -16,8 +16,6 @@ const dirname =
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'jsdom',
-    setupFiles: ['./vitest.setup.ts'],
     projects: [
       // __tests__ files that do not use Storybook
       {
