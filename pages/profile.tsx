@@ -1,5 +1,6 @@
 import useSWR from 'swr'
-import { fetcher } from '../src/providers'
+
+// @TODO switch to the Profile component from src/components/Profile
 
 function Profile() {
   const { data, error } = useSWR('/api/profile-data')
