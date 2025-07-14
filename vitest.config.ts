@@ -19,6 +19,16 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
     projects: [
+      // __tests__ files that do not use Storybook
+      {
+        plugins: [react()],
+        test: {
+          name: 'sans-storybook',
+          include: ['./__tests__/**/*.test.tsx'],
+          environment: 'jsdom',
+          setupFiles: ['./vitest.setup.ts'],
+        },
+      },
       {
         extends: true,
         plugins: [
