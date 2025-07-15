@@ -12,6 +12,8 @@ export function SWRProvider({ children }: SWRProviderProps) {
   return (
     <SWRConfig
       value={{
+        // do not cache responses
+        provider: () => new Map(),
         fetcher,
         // You can add more global SWR configurations here
         // such as revalidation intervals, error handling, etc.

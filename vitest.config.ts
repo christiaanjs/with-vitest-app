@@ -52,21 +52,20 @@ export default defineConfig({
         },
       },
       {
-        plugins: [react(), storybookNextJsPlugin()],
+        plugins: [storybookNextJsPlugin()],
         test: {
           name: 'portable-stories',
           include: ['./src/components/Profile/Profile.test.tsx'],
-          // browser: {
-          //   enabled: true,
-          //   headless: true,
-          //   provider: 'playwright',
-          //   instances: [
-          //     {
-          //       browser: 'chromium',
-          //     },
-          //   ],
-          // },
-          environment: 'jsdom',
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: 'playwright',
+            instances: [
+              {
+                browser: 'chromium',
+              },
+            ],
+          },
           setupFiles: ['.storybook/vitest.setup.portable.ts'],
         },
       },

@@ -1,7 +1,61 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Profile } from './Profile'
 import { SWRProvider } from '../../providers/SWRProvider'
-import { delay, http, HttpResponse } from 'msw'
+import { delay, http, HttpHandler, HttpResponse } from 'msw'
+
+const defaultResponse = {
+  name: 'John Doe',
+  bio: 'Software Engineer',
+}
+const errorResponse = {
+  error: 'Failed to fetch profile data',
+}
+const otherResponse = {
+  name: 'Alice Johnson',
+  bio: 'Frontend Developer & UX Enthusiast',
+}
+
+function getParameters(testCase: 'default' | 'loading' | 'error' | 'other') {
+  let handlers: HttpHandler[] = []
+  switch (testCase) {
+    case 'loading':
+      handlers = [
+        http.get('/api/profile-data', async () => {
+          await delay(1000) // Simulate a delay for loading state
+          return HttpResponse.json(null)
+        }),
+      ]
+      break
+    case 'error':
+      handlers = [
+        http.get('/api/profile-data', () => {
+          return new HttpResponse(errorResponse, { status: 404 })
+        }),
+      ]
+      break
+    case 'other':
+      handlers = [
+        http.get('/api/profile-data', () => {
+          return HttpResponse.json(otherResponse)
+        }),
+      ]
+      break
+    default:
+      handlers = [
+        http.get('/api/profile-data', () => {
+          return HttpResponse.json(defaultResponse)
+        }),
+      ]
+      break
+  }
+  return {
+    msw: {
+      handlers: {
+        'profile-data': handlers,
+      },
+    },
+  }
+}
 
 // Meta information for the component
 const meta: Meta<typeof Profile> = {
@@ -17,16 +71,6 @@ const meta: Meta<typeof Profile> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
-    msw: {
-      handlers: [
-        http.get('/api/profile-data', () => {
-          return HttpResponse.json({
-            name: 'John Doe',
-            bio: 'Software Engineer',
-          })
-        }),
-      ],
-    },
   },
 }
 
@@ -34,50 +78,20 @@ export default meta
 type Story = StoryObj<typeof Profile>
 
 // Default story using SWR data fetching with MSW
-export const Default: Story = {}
+export const Default: Story = {
+  parameters: getParameters('default'),
+}
 
 // Loading state story
 export const Loading: Story = {
-  parameters: {
-    msw: {
-      handlers: [
-        http.get('/api/profile-data', async () => {
-          await delay(1000) // Simulate a delay for loading state
-          // Return null to simulate loading state
-          return HttpResponse.json(null)
-        }),
-      ],
-    },
-  },
+  parameters: getParameters('loading'),
 }
 
 // Error state story
 export const Error: Story = {
-  parameters: {
-    msw: {
-      handlers: [
-        http.get('/api/profile-data', () => {
-          return HttpResponse.json(
-            { error: 'Failed to fetch profile data' },
-            { status: 500 }
-          )
-        }),
-      ],
-    },
-  },
+  parameters: getParameters('error'),
 }
 
 export const WithOtherProfileData: Story = {
-  parameters: {
-    msw: {
-      handlers: [
-        http.get('/api/profile-data', () => {
-          return HttpResponse.json({
-            name: 'Alice Johnson',
-            bio: 'Frontend Developer & UX Enthusiast',
-          })
-        }),
-      ],
-    },
-  },
+  parameters: getParameters('other'),
 }
