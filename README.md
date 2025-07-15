@@ -2,6 +2,17 @@
 
 This example shows how Vitest + SWR + portable stories currently does not work.
 
+## Fix
+
+- do not use both `react()` and `storybookNextJsPlugin()` vitest plugins just
+  the `storybookNextJsPlugin()`
+- **AND** run the tests in vitest browser mode not using `jsdom` OR `happy-dom`
+
+[Tags to compare](https://github.com/cabbiepete/with-vitest-app/compare/reproduction-portable-stories-error-other-test-types-working...reproduction-portable-stories-working-other-test-types-working)
+
+- Tag with issue: https://github.com/cabbiepete/with-vitest-app/releases/tag/reproduction-portable-stories-error-other-test-types-working
+- Tag where it is fixed: https://github.com/cabbiepete/with-vitest-app/releases/tag/reproduction-portable-stories-working-other-test-types-working
+
 ## Error
 
 Error seen when trying to run tests
