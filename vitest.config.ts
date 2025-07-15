@@ -66,6 +66,8 @@ export default defineConfig({
               },
             ],
           },
+          // avoid hooks warning and error `TypeError: Cannot read properties of null (reading 'useContext')`
+          // environment: 'jsdom',
           setupFiles: ['.storybook/vitest.setup.portable.ts'],
         },
       },
