@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Profile } from './Profile'
 import { SWRProvider } from '../../providers/SWRProvider'
 import { delay, http, HttpHandler, HttpResponse } from 'msw'
+import { expect } from 'storybook/test'
 
 const defaultResponse = {
   name: 'John Doe',
@@ -85,15 +86,36 @@ export const Default: Story = {
 // Loading state story
 export const Loading: Story = {
   parameters: getParameters('loading'),
+  play: async ({ canvas }) => {
+    // Ensure the loading state is displayed
+    expect(await canvas.findByRole('presentation')).toBeInTheDocument()
+  },
 }
 
 // Error state story
 export const Error: Story = {
   parameters: getParameters('error'),
+  play: async ({ canvas }) => {
+    // Ensure the error message is displayed
+    expect(await canvas.findByTestId('error')).toBeInTheDocument()
+  },
 }
 
 export const WithOtherProfileData: Story = {
   parameters: getParameters('other'),
+  play: async ({ canvas }) => {
+    // Ensure the other profile data is displayed
+    expect(await canvas.findByText(/Alice Johnson/i)).toBeInTheDocument()
+    expect(
+      canvas.getByText(/Frontend Developer & UX Enthusiast/i)
+    ).toBeInTheDocument()
+  },
 }
 
-export const WithDefaultHandlersFromPreview: Story = {}
+export const WithDefaultHandlersFromPreview: Story = {
+  play: async ({ canvas }) => {
+    // Ensure the default profile data is displayed
+    expect(await canvas.findByText(/John Default/i)).toBeInTheDocument()
+    expect(canvas.getByText(/Default Software Engineer/i)).toBeInTheDocument()
+  },
+}

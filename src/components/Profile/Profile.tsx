@@ -9,8 +9,8 @@ export interface ProfileData {
 export function Profile() {
   const { data, error } = useSWR('/api/profile-data')
 
-  if (error) return <div>Failed to load</div>
-  if (!data) return <div>Loading...</div>
+  if (error) return <div data-testid="error">Failed to load</div>
+  if (!data) return <div role="presentation">Loading...</div>
 
   return (
     <div>
