@@ -95,3 +95,5 @@ export const Error: Story = {
 export const WithOtherProfileData: Story = {
   parameters: getParameters('other'),
 }
+
+export const WithDefaultHandlersFromPreview: Story = {}

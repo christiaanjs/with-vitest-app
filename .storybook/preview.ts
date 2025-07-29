@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/nextjs-vite'
+import { http, HttpResponse } from 'msw'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 
 // Initialize MSW
@@ -21,6 +22,20 @@ const preview: Preview = {
       // 'error' - fail CI on a11y violations
       // 'off' - skip a11y checks entirely
       test: 'todo',
+    },
+
+    msw: {
+      handlers: {
+        'profile-data': [
+          // Default handler for profile data
+          http.get('/api/profile-data', () => {
+            return HttpResponse.json({
+              name: 'John Default',
+              bio: 'Default Software Engineer',
+            })
+          }),
+        ],
+      },
     },
   },
 }
