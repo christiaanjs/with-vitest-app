@@ -22,7 +22,8 @@ export default defineConfig({
         plugins: [react()],
         test: {
           name: 'sans-storybook',
-          include: ['./__tests__/**/*.test.tsx'],
+          // allow .ts or .tsx files in __tests__ directory
+          include: ['./__tests__/**/*.test.ts(x)?'],
           environment: 'jsdom',
           setupFiles: ['./vitest.setup.ts'],
         },
