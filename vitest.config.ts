@@ -21,11 +21,11 @@ export default defineConfig({
       {
         plugins: [react()],
         test: {
-          name: 'sans-storybook',
+          name: "sans-storybook",
           // allow .ts or .tsx files in __tests__ directory
-          include: ['./__tests__/**/*.test.ts(x)?'],
-          environment: 'jsdom',
-          setupFiles: ['./vitest.setup.ts'],
+          include: ["./__tests__/**/*.test.ts(x)?"],
+          environment: "jsdom",
+          setupFiles: ["./vitest.setup.ts"],
         },
       },
       {
@@ -34,44 +34,44 @@ export default defineConfig({
           // The plugin will run tests for the stories defined in your Storybook config
           // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
           storybookTest({
-            configDir: path.join(dirname, '.storybook'),
+            configDir: path.join(dirname, ".storybook"),
           }),
         ],
         test: {
-          name: 'storybook',
+          name: "storybook",
           browser: {
             enabled: true,
             headless: true,
-            provider: 'playwright',
+            provider: "playwright",
             instances: [
               {
-                browser: 'chromium',
+                browser: "chromium",
               },
             ],
           },
-          setupFiles: ['.storybook/vitest.setup.ts'],
+          setupFiles: [".storybook/vitest.setup.ts"],
         },
       },
       {
         plugins: [storybookNextJsPlugin()],
         test: {
-          name: 'portable-stories',
-          include: ['./src/components/Profile/Profile.test.tsx'],
+          name: "portable-stories",
+          include: ["./src/components/**/*.test.{ts,tsx}"],
           browser: {
             enabled: true,
             headless: true,
-            provider: 'playwright',
+            provider: "playwright",
             instances: [
               {
-                browser: 'chromium',
+                browser: "chromium",
               },
             ],
           },
           // avoid hooks warning and error `TypeError: Cannot read properties of null (reading 'useContext')`
           // environment: 'jsdom',
-          setupFiles: ['.storybook/vitest.setup.portable.ts'],
+          setupFiles: [".storybook/vitest.setup.portable.ts"],
         },
       },
     ],
   },
-})
+});
